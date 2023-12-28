@@ -4,6 +4,23 @@ import "./App.css"
 // 클래스형
 // 가져온 {Component}를 extends해서 사용함
 export default class App extends Component {
+
+  state = {
+    todoData: [
+      {
+        id: "1",
+        title: "공부하기",
+        completed: true
+      },
+      {
+        id: "2",
+        title: "청소하기",
+        completed: false
+      },
+    ]
+
+  }
+
   btnStyle = {
     color: "#fff",
     border: "none",
@@ -21,22 +38,16 @@ export default class App extends Component {
     }
   }
 
-  todoData = [
-    {
-      id: "1",
-      title: "공부하기",
-      completed: true
-    },
-    {
-      id: "2",
-      title: "청소하기",
-      completed: false
-    }
-  ]
+  // 할일 목록 제거 함수
+  // filter함수 : 배열에서 특정 조건에 따라 필터링 해주고 필터링한 값을 리턴해줌.
+  handleClick = (id) => {
+    let newTodoData = this.state.todoData.filter(data => data.id !== id)
+    console.log('newTodoData : ', newTodoData)
+    this.setState({ todoData: newTodoData }) // 필터링된 newTodoData를 todoData에 덮어씌워줌 으로서 삭제된걸 걸러준 배열을 보여줌
+  }
 
   //key={data.id} 리액트에서는 리스트 나열할때 유니크한 값을 써야한다.
   // {data.title} 로 중괄호를 사용해줘야 title가 나온다.
-
   render() {
     return (
       <duv className="container">
@@ -45,11 +56,11 @@ export default class App extends Component {
             <h1>할 일 목록</h1>
           </div>
 
-          {this.todoData.map(data => (
+          {this.state.todoData.map(data => (
             <div style={this.getStyle()} key={data.id}>
               <input type="checkbox" defaultChecked={data.completed}></input>
               {data.title}
-              <button style={this.btnStyle}>x</button>
+              <button style={this.btnStyle} onClick={() => this.handleClick(data.id)}>x</button>
             </div>
           ))}
 
