@@ -8,6 +8,7 @@ import Form from "./components/Form";
 // 가져온 {Component}를 extends해서 사용함
 //export default class App extends Component {
 
+
 // 함수형으로 변경
 export default function App() {
   // state = { // 클래스형
