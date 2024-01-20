@@ -5,15 +5,6 @@ export default function List({ todoData, setTodoData }) {
      // 부모컴포넌트에서 자녀컴포넌트로 데이터를 내려줌
      //props.todoData
 
-     const btnStyle = {
-          color: "#fff",
-          border: "none",
-          padding: "5px 9px",
-          borderRadius: "50px",
-          cursor: "pointer",
-          float: "right"
-     }
-
      const handleCompleteChange = (id) => {
           //let newTodoData = this.state.todoData.map((data) => { // 클래스형
           let newTodoData = todoData.map((data) => {
@@ -38,21 +29,26 @@ export default function List({ todoData, setTodoData }) {
           setTodoData(newTodoData);
      }
 
-     const getStyle = (completed) => {
-          return {
-               padding: "10px",
-               borderBottom: "1px #ccc dotted",
-               textDecoration: completed ? "line-through" : "none"
-          }
-     }
-
      return (
           <div>
                {todoData.map(data => ( // {this.state.todoData.map(data => 클래스형
-                    <div style={getStyle(data.completed)} key={data.id}>
-                         <input type="checkbox" defaultChecked={data.completed} onChange={() => handleCompleteChange(data.id)}></input>
-                         {data.title}
-                         <button style={btnStyle} onClick={() => handleClick(data.id)}>x</button>
+                    <div key={data.id}>
+                         <div className="flex items-center justify-between w-full px-4 py-1 my-2 text-gray-600 bg-gray-100 border rounded">
+                              <div className="items-center">
+                                   <input 
+                                        type="checkbox" 
+                                        defaultChecked={data.completed} 
+                                        onChange={() => handleCompleteChange(data.id)} 
+                                   />{" "}
+                                   <span className={data.completed ? "line-through" : undefined}>{data.title}</span>
+                              </div>
+                              <div>
+                                   <button className="items-center" 
+                                   onClick={() => handleClick(data.id)}>
+                                        x
+                                   </button>
+                              </div>                              
+                         </div>
                     </div>
                ))}
           </div>
