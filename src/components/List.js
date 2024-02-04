@@ -28,9 +28,26 @@ export default function List({ todoData, setTodoData }) {
     setTodoData(newTodoData);
   };
 
+  const handleEnd = (result) => {
+    console.log(result);
+
+    if(!result.destination) return; 
+    const newTodoData = [...todoData];
+    
+    // splice를 이용하여 투두리스트 아이템 제거 및 추가 한다.
+    // 1. 변경시키는 아이템을 배열에서 지워줍니다.
+    // 2. return 값으로 지워진 아이템을 잡아 줍니다.
+    const [reorderedItem] = newTodoData.splice(result.source.index, 1);
+
+    // 원하는 자리에 reorderItem을 insert 해줍니다.
+    newTodoData.splice(result.destination.index , 0, reorderedItem);
+    setTodoData(newTodoData);
+
+  }
+
   return (
     <div>
-      <DragDropContext >
+      <DragDropContext onDragEnd={handleEnd}>
         <Droppable droppableId="todo">
           {(provided) => ( 
             <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -45,8 +62,9 @@ export default function List({ todoData, setTodoData }) {
                 index={index}
               >
                 {(provided, snapshot) => (
-                <div key={data.id} {...provided.draggableProps} ref={provided.innerRef} {...provided.dragHandleProps}>
-                  <div className="flex items-center justify-between w-full px-4 py-1 my-2 text-gray-600 bg-gray-100 border rounded">
+                <div key={data.id} {...provided.draggableProps} ref={provided.innerRef} {...provided.dragHandleProps} 
+                  className={`${snapshot.isDragging ? "bg-gray-400" : "bg-gray-100" } flex items-center justify-between w-full px-4 py-1 my-2 text-gray-600 bg-gray-100 border rounded`}
+                >
                     <div className="items-center">
                       <input
                         type="checkbox"
@@ -67,7 +85,6 @@ export default function List({ todoData, setTodoData }) {
                         x
                       </button>
                     </div>
-                  </div>
                 </div>
                 )}
               </Draggable>
