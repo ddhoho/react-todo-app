@@ -1,7 +1,7 @@
 //import React, { Component } from "react"; // from "react"; 라이브러리에서 {Component} 를 가져옴 // 클래스형
 import React, { useState } from "react";
 import "./App.css"
-import List from "./components/List";
+import Lists from "./components/Lists";
 import Form from "./components/Form";
 
 // 클래스형
@@ -53,7 +53,7 @@ export default function App() {
           <h1>할 일 목록</h1>
         </div>
 
-        <List todoData={todoData} setTodoData={setTodoData} />
+        <Lists todoData={todoData} setTodoData={setTodoData} />
 
         <Form handleSubmit={handleSubmit} value={value} setValue={setValue} />
 
