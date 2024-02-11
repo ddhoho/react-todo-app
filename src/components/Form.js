@@ -2,8 +2,10 @@ import React from 'react'
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function ({ handleSubmit, value, setValue }) {
+
+     console.log("Form Component");
      const handleChange = (e) => {
-          console.log(e.target.value)
+          //console.log(e.target.value)
           //this.setState({ value: e.target.value }) // 클래스형
           setValue(e.target.value);
      }

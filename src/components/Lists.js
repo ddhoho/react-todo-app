@@ -2,11 +2,12 @@ import React from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import List from "./List";
 
-export default function Lists({ todoData, setTodoData }) {
+const Lists = React.memo(({ todoData, setTodoData, handleClick }) => {
+
   // 부모컴포넌트에서 자녀컴포넌트로 데이터를 내려줌
   //props.todoData
 
-  
+  console.log("Lists Component");
 
   const handleEnd = (result) => {
     console.log(result);
@@ -22,6 +23,7 @@ export default function Lists({ todoData, setTodoData }) {
     // 원하는 자리에 reorderItem을 insert 해줍니다.
     newTodoData.splice(result.destination.index, 0, reorderedItem);
     setTodoData(newTodoData);
+    localStorage.setItem('todoData', JSON.stringify(newTodoData));
   };
 
   return (
@@ -42,6 +44,7 @@ export default function Lists({ todoData, setTodoData }) {
                   >
                     {(provided, snapshot) => (
                       <List 
+                      handleClick={handleClick}
                         key={data.id}
                         id={data.id}
                         title={data.title}
@@ -61,5 +64,7 @@ export default function Lists({ todoData, setTodoData }) {
         </Droppable>
       </DragDropContext>
     </div>
-  );
-}
+  )
+});
+
+export default Lists
